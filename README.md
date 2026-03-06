@@ -80,3 +80,14 @@ Organizar solicitações internas por meio de protocolos com controle de priorid
 - Paginação e busca avançada
 - Dashboard com gráficos por setor/status
 - Testes automatizados (unitários e integração)
+
+## Autor
+
+Gustavo Nascimento  
+Estudante de Ciência da Computação
+
+GitHub: https://github.com/ArtGustav
+
+## Projeto online
+
+Este projeto pode ser acessado online após deploy no Vercel.
