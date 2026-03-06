@@ -1,0 +1,174 @@
+﻿<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema de Protocolos</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <header class="cabecalho">
+    <div>
+      <h1>Sistema de Protocolos</h1>
+      <p class="subtitulo">Cadastro e acompanhamento administrativo</p>
+    </div>
+
+    <div class="contadores" id="contadoresResumo">
+      <div class="contador">
+        <span class="contador-rotulo">Total</span>
+        <strong id="contadorTotal">0</strong>
+      </div>
+      <div class="contador">
+        <span class="contador-rotulo">Pendentes</span>
+        <strong id="contadorPendentes">0</strong>
+      </div>
+      <div class="contador">
+        <span class="contador-rotulo">Andamento</span>
+        <strong id="contadorAndamento">0</strong>
+      </div>
+      <div class="contador">
+        <span class="contador-rotulo">Concluídos</span>
+        <strong id="contadorConcluidos">0</strong>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="painel painel-formulario">
+      <h2 id="tituloFormulario">Novo protocolo</h2>
+      <form id="formProtocolo" novalidate>
+        <input type="hidden" id="protocoloId" />
+
+        <div class="grid-form">
+          <label>
+            Número
+            <input type="text" id="numero" placeholder="PROT-2026-0001 (auto se vazio)" />
+            <small class="erro-campo" id="erroNumero"></small>
+          </label>
+
+          <label>
+            Assunto *
+            <input type="text" id="assunto" required minlength="3" placeholder="Ex: Solicitação de reembolso" />
+            <small class="erro-campo" id="erroAssunto"></small>
+          </label>
+
+          <label>
+            Setor
+            <select id="setor">
+              <option value="">Selecione...</option>
+              <option value="Financeiro">Financeiro</option>
+              <option value="RH">RH</option>
+              <option value="TI">TI</option>
+              <option value="Comercial">Comercial</option>
+              <option value="Operações">Operações</option>
+            </select>
+          </label>
+
+          <label>
+            Responsável
+            <input type="text" id="responsavel" placeholder="Nome do responsável" />
+          </label>
+
+          <label>
+            Prioridade
+            <select id="prioridade">
+              <option value="baixa">Baixa</option>
+              <option value="média">Média</option>
+              <option value="alta">Alta</option>
+            </select>
+          </label>
+
+          <label>
+            Status
+            <select id="status">
+              <option value="pendente" selected>Pendente</option>
+              <option value="andamento">Andamento</option>
+              <option value="concluido">Concluído</option>
+            </select>
+          </label>
+
+          <label class="coluna-inteira">
+            Descrição
+            <textarea id="descricao" rows="4" placeholder="Detalhes adicionais (opcional)"></textarea>
+          </label>
+        </div>
+
+        <div id="mensagemFormulario" class="mensagem-formulario" aria-live="polite"></div>
+
+        <div class="acoes-formulario">
+          <button type="submit" class="btn btn-primario">Salvar</button>
+          <button type="button" id="btnCancelarEdicao" class="btn btn-secundario" hidden>Cancelar edição</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="painel painel-lista">
+      <div class="controles">
+        <label>
+          Buscar
+          <input type="search" id="buscaTexto" placeholder="Número, assunto ou responsável" />
+        </label>
+
+        <label>
+          Status
+          <select id="filtroStatus">
+            <option value="todos">Todos</option>
+            <option value="pendente">Pendentes</option>
+            <option value="andamento">Andamento</option>
+            <option value="concluido">Concluídos</option>
+          </select>
+        </label>
+
+        <label>
+          Prioridade
+          <select id="filtroPrioridade">
+            <option value="todas">Todas</option>
+            <option value="baixa">Baixa</option>
+            <option value="média">Média</option>
+            <option value="alta">Alta</option>
+          </select>
+        </label>
+
+        <label>
+          Ordenação
+          <select id="ordenacao">
+            <option value="recentes">Mais recentes</option>
+            <option value="antigos">Mais antigos</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="controles-extras">
+        <button type="button" id="btnExportar" class="btn btn-secundario">Exportar JSON</button>
+        <label class="btn btn-secundario btn-importar" for="inputImportar">Importar JSON</label>
+        <input type="file" id="inputImportar" accept="application/json" hidden />
+      </div>
+
+      <div class="tabela-wrapper">
+        <table id="tabelaProtocolos">
+          <thead>
+            <tr>
+              <th>Número</th>
+              <th>Assunto</th>
+              <th>Setor</th>
+              <th>Responsável</th>
+              <th>Prioridade</th>
+              <th>Status</th>
+              <th>Atualizado em</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="corpoTabelaProtocolos"></tbody>
+        </table>
+      </div>
+
+      <div id="listaCards" class="lista-cards"></div>
+      <p id="mensagemListaVazia" class="mensagem-vazia" hidden>Nenhum protocolo encontrado com os filtros atuais.</p>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" aria-live="assertive"></div>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
